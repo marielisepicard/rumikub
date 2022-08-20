@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import { createTiles } from "./utils";
 
 function App() {
+  const [tiles, setTiles] = useState([]);
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    // initialize tiles when app is launched.
+    setTiles(createTiles());
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      {tiles.map((tile, index) => (
+        <div
+          key={index}
+          className={`Tile ${tile.color ? tile.color : "joker"}`}
         >
-          Learn React
-        </a>
-      </header>
+          {tile.number ? tile.number : "joker"}
+        </div>
+      ))}
     </div>
   );
 }
